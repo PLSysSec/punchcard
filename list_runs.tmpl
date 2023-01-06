@@ -1,0 +1,8 @@
+{{range .workflow_runs}}
+  {{-
+    tablerow
+    ( .conclusion     | autocolor "green")
+    ( .status         | autocolor "yellow")    
+    ( .run_started_at | autocolor "white")    
+  -}}
+{{end}}
