@@ -153,10 +153,41 @@ function main() {
   list_runs_with_startup_failure tensorflow tensorflow
   list_runs_with_startup_failure opencv opencv
   list_runs_with_startup_failure jenkinsci jenkins
+
+  list_runs_with_startup_failure vuejs vue
+  list_runs_with_startup_failure vercel next.js
+  list_runs_with_startup_failure facebook react
+  list_runs_with_startup_failure twbs bootstrap
+  list_runs_with_startup_failure ohmyzsh ohmyzsh
+  list_runs_with_startup_failure d3 d3
+  list_runs_with_startup_failure electron electron
+  list_runs_with_startup_failure python cpython
+  list_runs_with_startup_failure python mypy
+  list_runs_with_startup_failure facebook create-react-app
+  list_runs_with_startup_failure axios axios
+  list_runs_with_startup_failure ytdl-org youtube-dl
+  list_runs_with_startup_failure denoland deno
+  list_runs_with_startup_failure puppeteer puppeteer
+  list_runs_with_startup_failure microsoft TypeScript
+  list_runs_with_startup_failure laravel laravel
+  list_runs_with_startup_failure mui material-ui
+  list_runs_with_startup_failure moby moby
+  list_runs_with_startup_failure webpack webpack
+  list_runs_with_startup_failure reduxjs redux
+  list_runs_with_startup_failure jquery jquery
+  list_runs_with_startup_failure hashicorp terraform
+  list_runs_with_startup_failure hashicorp consul
+  list_runs_with_startup_failure hashicorp vault
+  list_runs_with_startup_failure hashicorp nomad
   # Buggy: receiving a 502 error
+  # list_runs_with_startup_failure angular angular
+  # list_runs_with_startup_failure nodejs node
   # list_failures_no_paginate facebook react-native
   # list_failures_no_paginate flutter flutter
   # list_failures_no_paginate elastic elasticsearch
+  # list_runs_with_startup_failure mrdoob three.js
+  # list_runs_with_startup_failure ant-design ant-design
+  # list_runs_with_startup_failure microsoft vscode
 }
 
 main
