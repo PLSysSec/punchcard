@@ -4,6 +4,8 @@
 # echo commands before execution.
 set -exuo pipefail
 
+readonly REPO_LIST="repo-list.csv"
+
 # Ensure users have a valid GitHub access token available
 # for API requests.
 function validate_gh_login() {
@@ -123,6 +125,26 @@ function list_failures_no_paginate() {
     wc -l "${CSV_FILE}"
 }
 
+# The function reads the file described in REPO_LIST which is a list
+# of rows. It splits each row on whitespace, accepting the first item
+# as the owner and the second item as the repo name.
+function fetch_failures_from_file() {
+  # Read the file line by line.
+  while read LINE; do
+    failures_from_line "${LINE}"
+  done < "${REPO_LIST}"  
+}
+
+function failures_from_line() {
+  # Split the line on whitespace, grabbing the first lexeme as
+  # the owner, and the second lexeme as the repo.
+  local -r LINE="$1"
+  local -r SPLIT=(${LINE})
+  local -r OWNER="${SPLIT[0]}"
+  local -r REPO="${SPLIT[1]}"
+  list_runs_with_startup_failure "${OWNER}" "${REPO}"
+}
+
 # NB: Use the --paginate flag to sequentially request all pages of data.
 
 # NB: As a feature of gh, you can filter data with jq. This is useful
@@ -141,44 +163,23 @@ function list_failures_no_paginate() {
 # NB: GitHub Actions have a log retention period of 90 days max
 # for public repositories.
 
-function main() {
-  validate_tooling
-  validate_gh_login
+
+# These functions appeared useful at first, but now there's not
+# directly needed. This function exercises these API routes.
+function test_api_helpers() {
+  echo "Testing API calls."
   list_repo_workflows pulumi pulumi
   get_workflow pulumi pulumi 35076803
   get_workflow_usage pulumi pulumi 35076803
   list_failed_runs pulumi pulumi
   list_all_runs plSysSec punchcard
-  list_runs_with_startup_failure pulumi pulumi
-  list_runs_with_startup_failure tensorflow tensorflow
-  list_runs_with_startup_failure opencv opencv
-  list_runs_with_startup_failure jenkinsci jenkins
+}
 
-  list_runs_with_startup_failure vuejs vue
-  list_runs_with_startup_failure vercel next.js
-  list_runs_with_startup_failure facebook react
-  list_runs_with_startup_failure twbs bootstrap
-  list_runs_with_startup_failure ohmyzsh ohmyzsh
-  list_runs_with_startup_failure d3 d3
-  list_runs_with_startup_failure electron electron
-  list_runs_with_startup_failure python cpython
-  list_runs_with_startup_failure python mypy
-  list_runs_with_startup_failure facebook create-react-app
-  list_runs_with_startup_failure axios axios
-  list_runs_with_startup_failure ytdl-org youtube-dl
-  list_runs_with_startup_failure denoland deno
-  list_runs_with_startup_failure puppeteer puppeteer
-  list_runs_with_startup_failure microsoft TypeScript
-  list_runs_with_startup_failure laravel laravel
-  list_runs_with_startup_failure mui material-ui
-  list_runs_with_startup_failure moby moby
-  list_runs_with_startup_failure webpack webpack
-  list_runs_with_startup_failure reduxjs redux
-  list_runs_with_startup_failure jquery jquery
-  list_runs_with_startup_failure hashicorp terraform
-  list_runs_with_startup_failure hashicorp consul
-  list_runs_with_startup_failure hashicorp vault
-  list_runs_with_startup_failure hashicorp nomad
+function main() {
+  validate_tooling
+  validate_gh_login
+  echo "Your tooling has been validated. Starting API calls."
+  fetch_failures_from_file
   # Buggy: receiving a 502 error
   # list_runs_with_startup_failure angular angular
   # list_runs_with_startup_failure nodejs node
