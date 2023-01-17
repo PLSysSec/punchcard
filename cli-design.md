@@ -35,3 +35,16 @@ must be set". There's no semantic validation.
   * Perhaps: analyze cache for hits vs. misses?
   * Analyze artifact usage? E.g. you've built a release binary but you aren't
   storing the release as an artifact.
+  
+# Needs Design
+
+What do I do with imported Dhall code? If I marshal it into a strongly
+typed YAML struct, then why do I need Dhall in the first place? Rust will
+do the type-checking for me by validating the YAML structure.
+
+Do I offer syntactic sugars for building GitHub workflows?
+Suppose I offer an alternative to the YAML syntax, something that describes
+the language ecosystem and goes about templating the YAML on your behalf.
+
+e.g. I want to create a Rust CI/CD job. Let's generate some YAML that
+creates the steps you want to see.
