@@ -1,0 +1,14 @@
+discussion:
+- created
+- edited
+- deleted
+- transferred
+- pinned
+- unpinned
+- labeled
+- unlabeled
+- locked
+- unlocked
+- category_changed
+- answered
+- unanswered
