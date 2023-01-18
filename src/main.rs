@@ -1,7 +1,7 @@
 use clap::{arg, Command, command, ColorChoice};
-mod reader;
-use reader::read_dhall;
+use bindings::read_yaml;
 
+mod bindings;
 
 fn main() {
     let matches = command!()
@@ -22,8 +22,8 @@ fn main() {
         Some(("apply", sub_matches)) => { 
             let filepath = sub_matches.get_one::<String>("WORKFLOW_FILE").expect("File must exist").clone();
             println!("'punchcard apply' was used, file is: {:?}", filepath);
-            let dhall_file = read_dhall(filepath);
-            println!("{dhall_file}");            
+            let yaml_file = read_yaml(filepath.into());
+            println!("{yaml_file}");            
         },
         _ => unreachable!("Exhausted list of subcommands and subcommand_required prevents `None`"),
     }
