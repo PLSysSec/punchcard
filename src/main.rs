@@ -1,7 +1,6 @@
-use clap::{arg, Command, command, ColorChoice};
+use clap::{arg, command, ColorChoice, Command};
 mod reader;
 use reader::read_dhall;
-
 
 fn main() {
     let matches = command!()
@@ -16,15 +15,19 @@ fn main() {
             Command::new("apply")
                 .about("Build and validate a workflow using the specification provided.")
                 .arg_required_else_help(true)
-                .arg(arg!([WORKFLOW_FILE]))
-        ).get_matches();
+                .arg(arg!([WORKFLOW_FILE])),
+        )
+        .get_matches();
     match matches.subcommand() {
-        Some(("apply", sub_matches)) => { 
-            let filepath = sub_matches.get_one::<String>("WORKFLOW_FILE").expect("File must exist").clone();
+        Some(("apply", sub_matches)) => {
+            let filepath = sub_matches
+                .get_one::<String>("WORKFLOW_FILE")
+                .expect("File must exist")
+                .clone();
             println!("'punchcard apply' was used, file is: {:?}", filepath);
             let dhall_file = read_dhall(filepath);
-            println!("{dhall_file}");            
-        },
+            println!("{dhall_file}");
+        }
         _ => unreachable!("Exhausted list of subcommands and subcommand_required prevents `None`"),
     }
 }
