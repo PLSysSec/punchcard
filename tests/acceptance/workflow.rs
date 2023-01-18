@@ -1,14 +1,8 @@
 extern crate punchcard;
 
-use punchcard::bindings::{read_yaml, Workflow};
+use punchcard::bindings::{read_workflow, Workflow};
 use pretty_assertions::assert_eq;
 use serde_yaml;
-
-fn load_workflow(file: &'static str) -> Result<Workflow, serde_yaml::Error> {
-    let loaded = read_yaml(file.into());
-    let result: Workflow = serde_yaml::from_str(&loaded)?;
-    Ok(result)
-}
 
 #[test]
 fn parse_basic_workflow() -> Result<(), serde_yaml::Error> {

@@ -1,6 +1,13 @@
 use serde::{Serialize, Deserialize};
+use std::path::Path;
 
-use super::WorkflowEvents;
+use super::{read_yaml, WorkflowEvents};
+
+pub fn load_workflow<T: AsRef<Path>>(file: T) -> Result<Workflow, serde_yaml::Error> {
+    let loaded = read_yaml(file);
+    let result: Workflow = serde_yaml::from_str(&loaded)?;
+    Ok(result)
+}
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
