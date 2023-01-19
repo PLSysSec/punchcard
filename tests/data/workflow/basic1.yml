@@ -1,0 +1,7 @@
+name: "Basic Workflow"
+run_name: "Basic Run"
+on:
+  branch_protection_rule:
+    types:
+      - "created"
+      - "edited"
