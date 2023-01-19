@@ -1,6 +1,8 @@
 name: OnPush
 
-on: [push, pull_request]
+run-name: "Validate commit to branch ${{ github.ref_name }} by @${{ github.actor }}"
+
+on: ["push"]
 
 jobs:
   build:
@@ -9,5 +11,31 @@ jobs:
     steps:
       - name: Checkout the Repo
         uses: actions/checkout@v3
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
+      - name: Restore Cargo Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      - name: Instal Nextest
+        uses: taiki-e/install-action@nextest
+      - name: Install Cargo Make
+        uses: actions-rs/cargo/cargo@v1.0.1
+        with:
+          command: install
+          args: cargo-make
+        env:
+          CARGO_MAKE_PROFILE: "ci-static-code-analysis-tasks"
+      - name: Run Cargo Make
+        uses: actions-rs/cargo/cargo@v1.0.1
+        with:
+          command: make
+          args: ci-flow
+        env:
+          CARGO_MAKE_PROFILE: "ci-static-code-analysis-tasks"
+      #- name: Run ShellCheck
+      #  uses: ludeeus/action-shellcheck@master

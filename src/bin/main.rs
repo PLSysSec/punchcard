@@ -1,16 +1,16 @@
-use clap::{arg, Command, command, ColorChoice};
-use punchcard::bindings::{Workflow, load_workflow};
-use log::{info, warn, LevelFilter, Level};
-use std::sync::Once;
+use clap::{arg, command, ColorChoice, Command};
 use emojis::get_by_shortcode;
 use fern::colors::{Color, ColoredLevelConfig};
+use log::{info, warn, Level, LevelFilter};
+use punchcard::bindings::{load_workflow, Workflow};
 use punchcard::cmd::initialize;
+use std::sync::Once;
 
 static LOGGER_READY: Once = Once::new();
 
 fn main() {
     setup_logger(LevelFilter::Info);
-    
+
     let matches = command!()
         .author("Robbie McKinstry <robbie@pulumi.com>")
         .about("Correctness tooling for GitHub Actions")
@@ -23,25 +23,27 @@ fn main() {
             Command::new("apply")
                 .about("Build and validate a workflow using the specification provided.")
                 .arg_required_else_help(true)
-                .arg(arg!([WORKFLOW_FILE]))
+                .arg(arg!([WORKFLOW_FILE])),
         )
         .subcommand(
-            Command::new("init")
-                .about("Initialize Punchcard configuration for this directory.")
-        ).get_matches();
+            Command::new("init").about("Initialize Punchcard configuration for this directory."),
+        )
+        .get_matches();
 
     match matches.subcommand() {
-        Some(("apply", sub_matches)) => { 
-            let filepath = sub_matches.get_one::<String>("WORKFLOW_FILE").expect("File must exist").clone();
+        Some(("apply", sub_matches)) => {
+            let filepath = sub_matches
+                .get_one::<String>("WORKFLOW_FILE")
+                .expect("File must exist")
+                .clone();
             lint_file(filepath);
-        },
+        }
         Some(("init", _)) => {
             initialize();
-        },
+        }
         _ => unreachable!("Exhausted list of subcommands and subcommand_required prevents `None`"),
     }
 }
-
 
 fn setup_logger(level: log::LevelFilter) {
     LOGGER_READY.call_once(|| {
@@ -111,5 +113,5 @@ fn check_name(workflow: &Workflow) {
 fn check_run_name(workflow: &Workflow) {
     if workflow.run_name.is_none() {
         warn!("Your workflow does not set an explicit 'run-name'. It's a best practice to provide a human-readable run-name using action inputs to categorize similar runs together.");
-    }    
+    }
 }
