@@ -1,0 +1,3 @@
+on:
+  branch_protection_rule:
+    types: {}
