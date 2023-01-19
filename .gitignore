@@ -8,3 +8,7 @@
 # The data directory contains a collected data, which might not
 # be final data.
 /data
+
+# Ignore any instances of the config file that were created on
+# accident by `punchcard init`
+.punchcard.yml
