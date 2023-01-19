@@ -23,10 +23,19 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - name: Instal Nextest
         uses: taiki-e/install-action@nextest
+      - name: Install Cargo Make
+        uses: actions-rs/cargo/cargo@v1.0.1
+        with:
+          command: install
+          args: cargo-make
+        env:
+          CARGO_MAKE_PROFILE: "ci-static-code-analysis-tasks"
       - name: Run Cargo Make
         uses: actions-rs/cargo/cargo@v1.0.1
         with:
           command: make
           args: ci-flow
+        env:
+          CARGO_MAKE_PROFILE: "ci-static-code-analysis-tasks"
       #- name: Run ShellCheck
       #  uses: ludeeus/action-shellcheck@master

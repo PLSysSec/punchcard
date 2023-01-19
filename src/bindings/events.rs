@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
@@ -9,7 +9,6 @@ pub struct WorkflowEvents {
     pub create: Option<Create>,
     pub delete: Option<Delete>,
 }
-
 
 // Event: branch_protection_rule
 

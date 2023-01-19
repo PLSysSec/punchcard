@@ -1,5 +1,5 @@
-use std::collections::BTreeMap;
 use crate::bindings::Workflow;
+use std::collections::BTreeMap;
 
 pub trait Lint {
     fn name(&self) -> &str;
@@ -23,4 +23,4 @@ pub enum LintLevel {
     Info,
     Warning,
     Error,
-} 
+}

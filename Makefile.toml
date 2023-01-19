@@ -1,0 +1,49 @@
+[tasks.dev-test-flow]
+dependencies = [
+  "format-flow",
+  "format-toml-conditioned-flow",
+  "clippy-flow",
+  "outdated-flow",  
+  "pre-build",
+  "build",
+  "post-build",
+  "test-flow",
+]
+
+[tasks.lint-fix]
+command = "cargo"
+toolchain = "nightly"
+args = ["clippy", "--fix"]
+
+[tasks.test]
+command = "cargo"
+args = ["nextest", "run"]
+
+[tasks.format]
+toolchain = "nightly"
+
+[tasks.fmt]
+alias = "format"
+
+[tasks.check-format]
+toolchain = "nightly"
+
+#[tasks.rustfmt]
+#install_crate = { crate_name = "rustfmt-nightly", rustup_component_name = "rustfmt-preview", binary = "rustfmt", test_arg = "--help" }
+#command = "cargo"
+#args = ["+nightly", "fmt"]
+
+[tasks.sort]
+install_crate = { crate_name = "cargo-sort", binary = "cargo-sort", test_arg = "--help" }
+command = "cargo"
+args = ["sort"]
+
+[tasks.check-sort]
+install_crate = { crate_name = "cargo-sort", binary = "cargo-sort", test_arg = "--help" }
+command = "cargo"
+args = ["sort", "--check"]
+
+[tasks.outdated]
+install_crate = { crate_name = "cargo-outdated", binary = "cargo-outdated", test_arg = "--help" }
+command = "cargo"
+args = ["outdated", "--root-deps-only"]
