@@ -3,7 +3,6 @@
 // Dead code is typical when writing a library, especially one with
 // a shifting API surface.
 #![allow(dead_code)]
-
 // These are the lint groups we want enabled. This is... all of them!
 #![deny(clippy::cargo)]
 #![deny(clippy::suspicious)]

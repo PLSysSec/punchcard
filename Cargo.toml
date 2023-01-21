@@ -18,6 +18,7 @@ name = "punchcard"
 path = "src/lib.rs"
 
 [dependencies]
+github_generators = { path = "crates/generators" }
 clap = { version = "4.1.1", features = ["derive", "cargo", "color"] }
 emojis = "0.5.2"
 fern = { version = "0.6", features = ["colored"] }
