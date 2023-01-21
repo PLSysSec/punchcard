@@ -1,8 +1,10 @@
 # CLI Design
 
+* Migrate to an individual repo
 * Offer a TUI (or web?) "tutorial" experience to quickly build workflows from possible features.
 * Plugins with Extism?
 
+>>>>>>> d37c043 (Inclue ideas in design doc)
 The Punchcard CLI offers commands to validate and generate GitHub Actions
 workflows.
 
