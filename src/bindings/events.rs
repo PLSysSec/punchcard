@@ -2,26 +2,6 @@ extern crate github_generators;
 use github_generators::github_event;
 use serde::{Deserialize, Serialize};
 
-// Event: check_run
-/*
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "snake_case")]
-pub struct CheckRun {
-    pub types: Option<Vec<CheckRunActivityType>>,
-    pub github_sha: Option<String>,
-    pub github_ref: Option<String>,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "snake_case")]
-pub enum CheckRunActivityType {
-    Created,
-    Rerequested,
-    Completed,
-    RequestedAction,
-}
-*/
-
 github_event!("BranchProtectionRule", "Created", "Edited", "Deleted");
 github_event!("CheckRun", "Created", "Rerequested", "Completed", "RequestedAction");
 github_event!("CheckSuite", "Completed");
