@@ -31,3 +31,4 @@ pub mod cmd;
 
 mod config;
 mod lints;
+mod utils;
