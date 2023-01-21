@@ -1,5 +1,8 @@
 # CLI Design
 
+* Offer a TUI (or web?) "tutorial" experience to quickly build workflows from possible features.
+* Plugins with Extism?
+
 The Punchcard CLI offers commands to validate and generate GitHub Actions
 workflows.
 
