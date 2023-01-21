@@ -38,29 +38,15 @@ pub fn github_event(input: TokenStream) -> TokenStream {
    
     // 
     // #(#activity_types),*
-    let mut activity_enum = quote!{
+    let activity_enum = quote!{
         #[derive(Serialize, Deserialize, Debug)]
         #[serde(rename_all = "snake_case")]
         pub enum #activity_ident {
             #(#activity_types),*
         }
     };
-    let token_out = activity_enum.to_string();
+    // let token_out = activity_enum.to_string();
     // eprintln!("Token Result: {token_out:?}");
-
-    /*
-    let mut activity_type = if activity_types.is_empty() {
-        quote!{}
-    } else {
-        quote!{
-            #[derive(Serialize, Deserialize, Debug)]
-            #[serde(rename_all = "snake_case")]
-            pub enum #activity_ident {
-                #(#activity_types),*
-            }            
-        }
-    };
-    */
 
     quote! {
         #event_type
