@@ -1,4 +1,4 @@
-name: OnPush
+name: "Validate Commit"
 
 run-name: "Validate commit to branch ${{ github.ref_name }} by @${{ github.actor }}"
 
@@ -30,8 +30,8 @@ jobs:
           args: cargo-make
         env:
           CARGO_MAKE_PROFILE: "ci-static-code-analysis-tasks"
-      - name: Run Cargo Make
-        uses: actions-rs/cargo/cargo@v1.0.1
+      - name: "Run Cargo Make"
+        uses: actions-rs/cargo@v1.0.1
         with:
           command: make
           args: ci-flow
