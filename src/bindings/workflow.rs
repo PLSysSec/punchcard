@@ -15,4 +15,5 @@ pub struct Workflow {
     pub name: Option<String>,
     pub run_name: Option<String>,
     pub on: WorkflowEvents,
+    pub env: Hashmap<String, String>,
 }
