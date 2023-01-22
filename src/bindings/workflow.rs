@@ -1,3 +1,4 @@
+use indexmap::IndexMap;
 use serde::{Deserialize, Serialize};
 use std::path::Path;
 
@@ -15,4 +16,5 @@ pub struct Workflow {
     pub name: Option<String>,
     pub run_name: Option<String>,
     pub on: WorkflowEvents,
+    pub env: Option<IndexMap<String, String>>,
 }

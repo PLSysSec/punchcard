@@ -47,3 +47,10 @@ fn parse_delete() -> Result<(), serde_yaml::Error> {
     assert!(event.delete.is_some());
     Ok(())
 }
+
+#[test]
+fn parse_deployment() -> Result<(), serde_yaml::Error> {
+    let event = load_event("./tests/data/events/deployment1.yml")?;
+    assert!(event.deployment.is_some());
+    Ok(())
+}

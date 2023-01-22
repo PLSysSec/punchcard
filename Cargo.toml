@@ -21,6 +21,8 @@ path = "src/lib.rs"
 clap = { version = "4.1.1", features = ["derive", "cargo", "color"] }
 emojis = "0.5.2"
 fern = { version = "0.6", features = ["colored"] }
+github_generators = { path = "crates/generators" }
+indexmap = { version = "1.9.2", features = ["serde"] }
 log = "0.4.17"
 pretty_assertions = "1.3.0"
 serde = { version = "1.0", features = ["derive"] }
