@@ -25,6 +25,7 @@ jobs:
         uses: "taiki-e/install-action@nextest"
       - name: "Install Cargo Make"
         uses: "actions-rs/cargo@v1.0.1"
+        continue-on-error: true
         with:
           command: "install"
           args: "cargo-make"
