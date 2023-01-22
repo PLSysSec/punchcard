@@ -24,13 +24,9 @@ jobs:
       - name: "Instal Nextest"
         uses: "taiki-e/install-action@nextest"
       - name: "Install Cargo Make"
-        uses: "actions-rs/cargo@v1.0.1"
+        uses: jaxxstorm/action-install-gh-release@v1.5.0
         with:
-          command: "install"
-          args: "cargo-make"
-          toolchain: "stable"
-        env:
-          CARGO_MAKE_PROFILE: "ci-static-code-analysis-tasks"
+          repo: "sagiegurari/cargo-make"
       - name: "Run Cargo Make"
         uses: "actions-rs/cargo@v1"
         with:
