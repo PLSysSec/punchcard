@@ -1,0 +1,35 @@
+name: "Validate Commit"
+
+run-name: "Validate commit to branch ${{ github.ref_name }} by @${{ github.actor }}"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:    
+      - main
+
+jobs:
+  changelog:
+    name: "Generate CHANGELOG"
+    runs-on: "ubuntu-latest"
+    needs: "build"
+    if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true}}
+    steps:
+      - name: "Checkout the Repo"
+        uses: "actions/checkout@v3"
+      - name: "Generate CHANGELOG"
+        uses: "orhun/git-cliff-action@v2"
+        with:
+          args: "--verbose"
+        env:
+          OUTPUT: "CHANGELOG.md"
+      - name: "Check if CHANGELOG changed"
+        uses: "jaxxstorm/action-git-worktree-clean"
+        id: "worktree-clean"
+      - name: "Commit Changes"
+        if: ${{ steps.worktree-clean == 'false' }}
+        run: |
+          git commit --all -m Update Changelog'
+      - name: "Push Commit"
+        if: ${{ steps.worktree-clean == 'false' }}
+        run: git push origin trunk
