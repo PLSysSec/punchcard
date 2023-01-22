@@ -6,17 +6,13 @@ on: ["push"]
 
 jobs:
   build:
-    name: Build and Test
-    runs-on: ubuntu-latest
+    name: "Build and Test"
+    runs-on: "ubuntu-latest"
     steps:
-      - name: Checkout the Repo
-        uses: actions/checkout@v3
-      - name: Setup Rust Toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-      - name: Restore Cargo Cache
-        uses: actions/cache@v3
+      - name: "Checkout the Repo"
+        uses: "actions/checkout@v3"
+      - name: "Restore Cargo Cache"
+        uses: "actions/cache@v3"
         with:
           path: |
             ~/.cargo/bin
@@ -25,20 +21,21 @@ jobs:
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-      - name: Instal Nextest
-        uses: taiki-e/install-action@nextest
-      - name: Install Cargo Make
-        uses: actions-rs/cargo@v1.0.1
+      - name: "Instal Nextest"
+        uses: "taiki-e/install-action@nextest"
+      - name: "Install Cargo Make"
+        uses: "actions-rs/cargo@v1.0.1"
         with:
-          command: install
-          args: cargo-make
+          command: "install"
+          args: "cargo-make"
+          toolchain: "stable"
         env:
           CARGO_MAKE_PROFILE: "ci-static-code-analysis-tasks"
       - name: "Run Cargo Make"
-        uses: actions-rs/cargo@v1
+        uses: "actions-rs/cargo@v1"
         with:
-          command: make
-          args: ci-flow
+          command: "make"
+          args: "ci-flow"
         env:
           CARGO_MAKE_PROFILE: "ci-static-code-analysis-tasks"
       #- name: Run ShellCheck

@@ -1,7 +1,7 @@
 extern crate punchcard;
 
 use pretty_assertions::assert_eq;
-use punchcard::bindings::{load_workflow};
+use punchcard::bindings::load_workflow;
 use serde_yaml;
 
 #[test]
