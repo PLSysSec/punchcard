@@ -1,6 +1,6 @@
-name: "Validate Commit"
+name: "PR Merge"
 
-run-name: "Validate commit to branch ${{ github.ref_name }} by @${{ github.actor }}"
+run-name: "After merge from ${{ github.ref_name }} by @${{ github.actor }}"
 
 on:
   workflow_dispatch:
@@ -12,11 +12,13 @@ jobs:
   changelog:
     name: "Generate CHANGELOG"
     runs-on: "ubuntu-latest"
-    needs: "build"
-    if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true}}
+    # needs: "build"
+    # if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true}}
     steps:
       - name: "Checkout the Repo"
-        uses: "actions/checkout/v3"
+        uses: "actions/checkout@v3"
+        with:
+          fetch-depth: 0
       - name: "Generate CHANGELOG"
         uses: "orhun/git-cliff-action@v2"
         with:
@@ -24,8 +26,10 @@ jobs:
         env:
           OUTPUT: "CHANGELOG.md"
       - name: "Check if CHANGELOG changed"
-        uses: "jaxxstorm/action-git-worktree-clean"      
+        uses: "jaxxstorm/action-git-worktree-clean@master"
         id: "worktree-clean"
+        with:
+          fail-on-unclean: false
       - name: "Commit Changes"
         if: ${{ steps.worktree-clean == 'false' }}
         run: |
