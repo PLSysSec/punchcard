@@ -29,7 +29,7 @@ pub struct Job {
     pub strategy: Option<Matrix>,
     // TODO: Container.
     // TODO: Services.
-    pub uses: Option<String>, 
+    pub uses: Option<String>,
     pub with: Option<IndexMap<String, String>>,
     pub secrets: Option<IndexMap<String, String>>,
 }
