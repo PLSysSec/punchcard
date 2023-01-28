@@ -24,6 +24,12 @@ pub struct Job {
     pub outputs: Option<IndexMap<String, String>>,
     pub defaults: Option<Defaults>,
     pub steps: Vec<Step>,
+    pub continue_on_error: Option<bool>,
     pub timeout_minutes: Option<String>,
     pub strategy: Option<Matrix>,
+    // TODO: Container.
+    // TODO: Services.
+    pub uses: Option<String>, 
+    pub with: Option<IndexMap<String, String>>,
+    pub secrets: Option<IndexMap<String, String>>,
 }
