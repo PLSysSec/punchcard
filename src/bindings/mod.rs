@@ -2,6 +2,7 @@ use std::fs;
 use std::path::Path;
 
 pub use events::*;
+pub use permissions::*;
 pub use workflow::*;
 
 pub fn read_yaml<T: AsRef<Path>>(file: T) -> String {
@@ -11,4 +12,5 @@ pub fn read_yaml<T: AsRef<Path>>(file: T) -> String {
 mod concurrency;
 mod defaults;
 mod events;
+mod permissions;
 mod workflow;
