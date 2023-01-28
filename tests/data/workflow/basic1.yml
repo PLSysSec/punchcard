@@ -5,3 +5,7 @@ on:
     types:
       - "created"
       - "edited"
+jobs:
+  foo:
+    runs-on: Ubuntu
+    steps: []
