@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use std::path::Path;
 
 use super::{read_yaml, WorkflowEvents};
+use crate::bindings::defaults::Defaults;
 
 pub fn load_workflow<T: AsRef<Path>>(file: T) -> Result<Workflow, serde_yaml::Error> {
     let loaded = read_yaml(file);
@@ -17,4 +18,5 @@ pub struct Workflow {
     pub run_name: Option<String>,
     pub on: WorkflowEvents,
     pub env: Option<IndexMap<String, String>>,
+    pub defaults: Option<Defaults>,
 }

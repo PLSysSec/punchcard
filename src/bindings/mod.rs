@@ -9,5 +9,6 @@ pub fn read_yaml<T: AsRef<Path>>(file: T) -> String {
 }
 
 mod concurrency;
+mod defaults;
 mod events;
 mod workflow;
