@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum OneOrMany<O, M> {
     One(O),
-    Many(M),
+    Many(Vec<M>),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -12,4 +12,11 @@ pub enum OneOrMany<O, M> {
 pub enum OneOrDictionary<O, D> {
     One(O),
     Dictionary(D),
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(untagged)]
+pub enum BoolOrExpr {
+    Bool(bool),
+    Expr(String),    
 }

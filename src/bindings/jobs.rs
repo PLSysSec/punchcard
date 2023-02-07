@@ -6,6 +6,7 @@ use crate::bindings::one_or::OneOrMany;
 use crate::bindings::permissions::Permissions;
 use crate::bindings::steps::Step;
 use crate::bindings::OneOrDictionary;
+use crate::bindings::BoolOrExpr;
 use indexmap::IndexMap;
 use serde::{Deserialize, Serialize};
 
@@ -17,14 +18,14 @@ pub struct Job {
     pub needs: Option<OneOrMany<String, String>>,
     #[serde(rename = "if")]
     pub if_expr: Option<String>,
-    pub runs_on: OneOrMany<String, String>,
+    pub runs_on: Option<OneOrMany<String, String>>,
     pub environment: Option<OneOrDictionary<String, Environment>>,
     pub env: Option<IndexMap<String, String>>,
     pub concurrency: Option<OneOrDictionary<String, Concurrency>>,
     pub outputs: Option<IndexMap<String, String>>,
     pub defaults: Option<Defaults>,
-    pub steps: Vec<Step>,
-    pub continue_on_error: Option<bool>,
+    pub steps: Option<Vec<Step>>,
+    pub continue_on_error: Option<BoolOrExpr>,
     pub timeout_minutes: Option<String>,
     pub strategy: Option<Matrix>,
     // TODO: Container.
